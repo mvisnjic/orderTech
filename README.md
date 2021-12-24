@@ -8,7 +8,9 @@ Projekt izradili: [Laura Lončarić](https://github.com/LoncaricLaura) i [Matej 
 
 ## Zaduženja
 
-Laura Lončarić - izrada prototipa, implementacija prvog dijela aplikacije (početni zaslon, unos podataka korisnika), dizajn UI komponenti
+Laura Lončarić (laloncar@unipu.hr) - izrada prototipa, implementacija prvog dijela aplikacije (početni zaslon, unos podataka korisnika), dizajn UI komponenti, i ostalo po potrebi.
+
+Matej Višnjić (mvisnjic@unipu.hr) - izrada diagrama, implementacija ostalih dijelova aplikacije, baza podataka i ostalo po potrebi.
 
 ## Kratki opis
 
@@ -36,6 +38,7 @@ Web:
 
 ## Organizacija
 
-Sveučilište Jurja Dobrile u Puli
-Fakultet informatike u Puli
+[Sveučilište Jurja Dobrile u Puli](https://www.unipu.hr/)
+[Fakultet informatike u Puli](https://fipu.unipu.hr/)
+
 Mentor: Nikola Tanković (https://fipu.unipu.hr/fipu/nikola.tankovic, nikola.tankovic@unipu.hr)
