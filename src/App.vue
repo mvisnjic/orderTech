@@ -6,10 +6,16 @@ import HelloWorld from './components/HelloWorld.vue'
 
 <template>
     <div id="app">
-        <div class="bg-[#FCFCFF]" id="nav">
-            <router-link to="/">Home</router-link> |
-            <router-link to="/login">Login</router-link> |
-            <router-link to="/signup">Sign up</router-link>
+        <div class="flex flex-wrap justify-between items-center justify-center pt-10 bg-[#FCFCFF]" id="nav">
+            <a href="#" class="px-12">
+                <img src="./assets/logo.png">
+            </a>
+            <div class="mr-[750px]">
+                <router-link to="/" class="text-[#E55050] hover:text-red-800 hover:font-bold">Home</router-link> |
+                <router-link to="/login" class="text-[#E55050] hover:text-red-800 hover:font-bold">Login</router-link> |
+                <router-link to="/signup" class="text-[#E55050] hover:text-red-800 hover:font-bold">Sign up</router-link>
+            </div>
+
         </div>
         <router-view />
     </div>
@@ -22,7 +28,7 @@ import HelloWorld from './components/HelloWorld.vue'
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    padding-top: 35px;
     background-color: #FCFCFF;
 }
 </style>
+

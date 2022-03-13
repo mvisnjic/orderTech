@@ -1,11 +1,5 @@
 <template>
     <div class="hello">
-        <h1 class="font-bold">OrderTech</h1>
-        <br />
-        <h2 id="test" class="text-center">{{ msg }}</h2>
-        <p>Lako i besplatno u samo nekoliko koraka!</p>
-        <br />
-        <a href="https://github.com/mvisnjic/orderTech">Github repozitorij</a>
     </div>
 </template>
 
