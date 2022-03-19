@@ -1,6 +1,6 @@
 <template>
-    <div class="flex items-center justify-center py-14  sm:px-7 lg:px-9">
-        <div class="max-w-md w-full space-y-8">
+    <div class="flex items-center justify-center py-14 sm:px-7 lg:px-9">
+        <div class="max-w-md w-full space-y-8 px-4 sm:px-0">
             <h2 class="mt-6 text-cetner text-3xl font-bold text-black-900 pb-7">Log in to your account </h2>
             <form class="mt-12">
                 <div class="grid justify-items-start">
