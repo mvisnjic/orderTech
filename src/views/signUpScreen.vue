@@ -109,7 +109,7 @@
 import { firebase }  from '../firebase'
 
 export default {
-    name: 'Signup',
+    name: 'signUpScreen',
     data() {
         return {
             firstName: '',
