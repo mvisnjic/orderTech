@@ -1,3 +1,5 @@
-export default {
+import { reactive } from 'vue'
+
+export const store = reactive({
     currentUser: null,
-}
+})

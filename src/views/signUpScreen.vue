@@ -106,8 +106,8 @@
 </template>
 
 <script>
-import { firebase }  from '../firebase'
-
+import { firebase } from '../firebase'
+import { store } from '../store'
 export default {
     name: 'signUpScreen',
     data() {
@@ -121,12 +121,20 @@ export default {
     },
     methods: {
         signup() {
-            firebase.auth().createUserWithEmailAndPassword(this.username, this.password).then(function() {
-                console.log('Uspješna registracija!');
-            })
-            .catch(function(error) {
-                console.error('Došlo je do pogreške', error);
-            })
+            firebase
+                .auth()
+                .createUserWithEmailAndPassword(this.username, this.password)
+                .then(() => {
+                    store.currentUser = this.username
+                    console.log('Reg Success! Email: ' + this.username)
+                })
+                .then(() => {
+                    this.$router.replace({ path: '/' })
+                })
+                .catch((e) => {
+                    console.error(e)
+                    store.currentUser = null
+                })
         },
     },
 }

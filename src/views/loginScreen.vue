@@ -67,7 +67,7 @@
 
 <script>
 import { firebase } from '../firebase'
-
+import { store } from '../store'
 export default {
     name: 'loginScreen',
     data() {
@@ -83,12 +83,13 @@ export default {
                 .auth()
                 .signInWithEmailAndPassword(this.username, this.password)
                 .then((result) => {
-                    console.log('Uspješna prijava', result)
-
+                    console.log(result)
                     //changing routes
-                    this.$router.replace({ name: 'Index' })
-
-                    console.log(this.$router)
+                    this.$router.replace({ path: '/' })
+                    console.log(result.user.email)
+                })
+                .then((res) => {
+                    // store.currentUser = res.user.email
                 })
                 .catch((e) => {
                     console.log('Greška', e)
