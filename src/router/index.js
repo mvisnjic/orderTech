@@ -14,20 +14,29 @@ const routes = [
         path: '/login',
         name: 'Login',
         component: login,
+        meta: { title: 'Login | OrderTech' },
     },
     {
         path: '/signup',
         name: 'Signup',
         component: signup,
+        meta: { title: 'Sign Up | OrderTech' },
     },
     {
         path: '/addvehicle',
         name: 'addVehicle',
         component: addVehicle,
+        meta: { title: 'My Cars | OrderTech' },
     },
 ]
 const router = createRouter({
     history: createWebHistory(),
     routes,
 })
+
+const defaultTitle = 'OrderTech'
+router.afterEach((to) => {
+    document.title = to.meta.title || defaultTitle
+})
+
 export default router
