@@ -3,7 +3,7 @@ import index from '../views/indexScreen.vue'
 import login from '../views/loginScreen.vue'
 import signup from '../views/signUpScreen.vue'
 import addVehicle from '../views/addVehicle.vue'
-
+import { store } from '../store'
 const routes = [
     {
         path: '/',
@@ -39,4 +39,9 @@ router.afterEach((to) => {
     document.title = to.meta.title || defaultTitle
 })
 
+router.beforeEach((to) => {
+    if (!store.currentUser && to.path !== '/login' && to.path !== '/signup') {
+        return { path: '/login' }
+    }
+})
 export default router
