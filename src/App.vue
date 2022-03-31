@@ -40,7 +40,8 @@
                     Log out
                 </a>
             </div>
-            {{ store.currentUser }}
+            Hi
+            {{ this.firstName }}
         </div>
         <router-view />
     </div>
@@ -61,14 +62,38 @@ onAuthStateChanged(auth, (user) => {
 </script>
 
 <script>
-import { firebase } from './firebase'
+import { firebase, db } from './firebase'
 import { store } from './store'
+
+function getData() {
+    let usersData = []
+    db.collection('users')
+        .get()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                usersData.push({
+                    id: doc.id,
+                    firstName: doc.data().firstName,
+                    lastName: doc.data().lastName,
+                })
+                console.log(doc.id, '=>', doc.data())
+            })
+            return usersData
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+}
 
 export default {
     name: 'app',
+    firestore: {
+        users: db.collection('users'),
+    },
     data() {
         return {
             store,
+            users: [],
         }
     },
     methods: {
@@ -80,6 +105,9 @@ export default {
                     this.$router.replace({ name: 'Login' })
                 })
         },
+    },
+    mounted() {
+        getData()
     },
 }
 </script>

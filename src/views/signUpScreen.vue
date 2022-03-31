@@ -81,10 +81,10 @@
                         required
                     />
                 </div>
-                <div class="mt-10">
+                <div class="mt-10" >
                     <button
                         type="button"
-                        @click="signup"
+                        @click="signup()"
                         class="bg-[#E55050] text-white p-4 w-full rounded-full tracking-wide font-semibold font-display hover:bg-red-600"
                     >
                         Sign up
@@ -107,6 +107,7 @@
 
 <script>
 import { firebase } from '../firebase'
+import { db } from '../firebase'
 import { store } from '../store'
 export default {
     name: 'signUpScreen',
@@ -121,6 +122,7 @@ export default {
     },
     methods: {
         signup() {
+        
             firebase
                 .auth()
                 .createUserWithEmailAndPassword(this.username, this.password)
@@ -134,6 +136,17 @@ export default {
                 .catch((e) => {
                     console.error(e)
                     store.currentUser = null
+                })
+                db.collection('users').add({
+                    firstName: this.firstName,
+                    lastName: this.lastName,
+                    username: this.username,
+                })
+                .then((doc) => {
+                    console.log('Spremljeno', doc);
+                })
+                .catch((e) => {
+                    console.error(e);
                 })
         },
     },

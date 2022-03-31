@@ -4,6 +4,7 @@ import login from '../views/loginScreen.vue'
 import signup from '../views/signUpScreen.vue'
 import addVehicle from '../views/addVehicle.vue'
 
+
 const routes = [
     {
         path: '/',
