@@ -40,8 +40,13 @@ router.afterEach((to) => {
 })
 
 router.beforeEach((to) => {
-    if (!store.currentUser && to.path !== '/login' && to.path !== '/signup') {
+    if (
+        !localStorage.getItem('checkLogedUser', store.currentUser) &&
+        to.path !== '/login' &&
+        to.path !== '/signup'
+    ) {
         return { path: '/login' }
     }
 })
+
 export default router

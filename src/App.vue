@@ -54,9 +54,11 @@ const auth = getAuth()
 onAuthStateChanged(auth, (user) => {
     if (user) {
         store.currentUser = user.email
-        console.log(store.currentUser)
+        localStorage.setItem('checkLogedUser', store.currentUser)
+        console.log('Success', store.currentUser)
     } else {
         store.currentUser = null
+        localStorage.clear()
     }
 })
 </script>
