@@ -5,9 +5,9 @@
             id="nav"
         >
             <div class="pl-36 sm:pl-16">
-                <a href="#" class="px-12">
+                <router-link to="/" class="px-12">
                     <img src="./assets/logo.png" />
-                </a>
+                </router-link>
             </div>
             <div class="text-[20px] flex flex-row justify-center space-x-5">
                 <div
@@ -55,8 +55,11 @@ const auth = getAuth()
 onAuthStateChanged(auth, (user) => {
     if (user) {
         store.currentUser = user.email
+        localStorage.setItem('checkLogedUser', store.currentUser)
+        console.log('Success', store.currentUser)
     } else {
         store.currentUser = null
+        localStorage.clear()
     }
 })
 </script>
