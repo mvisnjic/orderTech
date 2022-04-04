@@ -8,6 +8,7 @@
         <div
             class="mt-4 grid grid-cols-1 gap-6 justify-items-center md:grid-cols-2 lg:grid-cols-3 lg:gap-8"
         >
+            <addNewCar />
             <myCar />
             <myCar />
             <myCar />
@@ -20,10 +21,11 @@
 
 <script>
 import myCar from '../components/myCar.vue'
-
+import addNewCar from '../components/addNewCar.vue'
 export default {
     components: {
         myCar,
+        addNewCar,
     },
 }
 </script>

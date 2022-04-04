@@ -14,6 +14,12 @@
                     v-if="store.currentUser"
                     class="text-[#E55050] hover:text-red-800 hover:font-bold"
                 >
+                    <router-link to="/">Home</router-link>
+                </div>
+                <div
+                    v-if="store.currentUser"
+                    class="text-[#E55050] hover:text-red-800 hover:font-bold"
+                >
                     <router-link to="/addvehicle">My Cars</router-link>
                 </div>
 
@@ -41,7 +47,6 @@
                 </a>
             </div>
             Hi
-            {{ this.firstName }}
         </div>
         <router-view />
     </div>
