@@ -14,6 +14,12 @@
                     v-if="store.currentUser"
                     class="text-[#E55050] hover:text-red-800 hover:font-bold"
                 >
+                    <router-link to="/">Home</router-link>
+                </div>
+                <div
+                    v-if="store.currentUser"
+                    class="text-[#E55050] hover:text-red-800 hover:font-bold"
+                >
                     <router-link to="/addvehicle">My Cars</router-link>
                 </div>
 
@@ -40,7 +46,6 @@
                     Log out
                 </a>
             </div>
-            
             {{ store.currentUser }}
         </div>
         <router-view />

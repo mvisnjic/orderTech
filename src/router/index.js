@@ -3,6 +3,7 @@ import index from '../views/indexScreen.vue'
 import login from '../views/loginScreen.vue'
 import signup from '../views/signUpScreen.vue'
 import addVehicle from '../views/addVehicle.vue'
+import order from '../views/orderNow.vue'
 import { store } from '../store'
 const routes = [
     {
@@ -27,6 +28,12 @@ const routes = [
         name: 'addVehicle',
         component: addVehicle,
         meta: { title: 'My Cars | OrderTech' },
+    },
+    {
+        path: '/order',
+        name: 'order',
+        component: order,
+        meta: { title: 'Order Now | OrderTech' },
     },
 ]
 const router = createRouter({
