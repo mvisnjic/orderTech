@@ -81,7 +81,7 @@
                         required
                     />
                 </div>
-                <div class="mt-10" >
+                <div class="mt-10">
                     <button
                         type="button"
                         @click="signup()"
@@ -108,6 +108,7 @@
 <script>
 import { firebase } from '../firebase'
 import { db } from '../firebase'
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 import { store } from '../store'
 export default {
     name: 'signUpScreen',
@@ -122,12 +123,15 @@ export default {
     },
     methods: {
         signup() {
-        
-            firebase
-                .auth()
-                .createUserWithEmailAndPassword(this.username, this.password)
+            const auth = getAuth()
+            createUserWithEmailAndPassword(auth, this.username, this.password)
                 .then(() => {
                     store.currentUser = this.username
+                    db.collection('users').add({
+                        firstName: this.firstName,
+                        lastName: this.lastName,
+                        username: this.username,
+                    })
                     console.log('Reg Success! Email: ' + this.username)
                 })
                 .then(() => {
@@ -136,17 +140,6 @@ export default {
                 .catch((e) => {
                     console.error(e)
                     store.currentUser = null
-                })
-                db.collection('users').add({
-                    firstName: this.firstName,
-                    lastName: this.lastName,
-                    username: this.username,
-                })
-                .then((doc) => {
-                    console.log('Spremljeno', doc);
-                })
-                .catch((e) => {
-                    console.error(e);
                 })
         },
     },

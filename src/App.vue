@@ -41,19 +41,27 @@
                     href="#"
                     v-if="store.currentUser"
                     class="text-[#E55050] hover:text-red-800 hover:font-bold"
-                    @click="logout()"
+                    @click="signout()"
                 >
                     Log out
                 </a>
             </div>
-            Hi
+            {{ store.currentUser }}
         </div>
         <router-view />
     </div>
 </template>
 
 <script setup>
-import { onAuthStateChanged, getAuth } from 'firebase/auth'
+
+
+</script>
+
+<script>
+import { firebase, db } from './firebase'
+import { store } from './store'
+import { onAuthStateChanged, getAuth,  signOut } from 'firebase/auth'
+
 
 const auth = getAuth()
 //monitoring the user's login status
@@ -67,31 +75,6 @@ onAuthStateChanged(auth, (user) => {
         localStorage.clear()
     }
 })
-</script>
-
-<script>
-import { firebase, db } from './firebase'
-import { store } from './store'
-
-function getData() {
-    let usersData = []
-    db.collection('users')
-        .get()
-        .then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-                usersData.push({
-                    id: doc.id,
-                    firstName: doc.data().firstName,
-                    lastName: doc.data().lastName,
-                })
-                console.log(doc.id, '=>', doc.data())
-            })
-            return usersData
-        })
-        .catch((error) => {
-            console.log(error)
-        })
-}
 
 export default {
     name: 'app',
@@ -105,18 +88,20 @@ export default {
         }
     },
     methods: {
-        logout() {
-            firebase
-                .auth()
-                .signOut()
+        signout() {
+            //const auth = getAuth();
+                signOut(auth)
                 .then(() => {
                     this.$router.replace({ name: 'Login' })
                 })
+                .catch((error) => {
+                    console.log(error)
+                })
         },
     },
-    mounted() {
+    /*mounted() {
         getData()
-    },
+    },*/
 }
 </script>
 
