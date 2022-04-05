@@ -67,6 +67,7 @@
 
 <script>
 import { firebase } from '../firebase'
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { store } from '../store'
 export default {
     name: 'loginScreen',
@@ -79,9 +80,8 @@ export default {
     methods: {
         login() {
             console.log('logging ' + this.username)
-            firebase
-                .auth()
-                .signInWithEmailAndPassword(this.username, this.password)
+                const auth = getAuth()
+                signInWithEmailAndPassword(auth, this.username, this.password)
                 .then((result) => {
                     //changing routes
                     this.$router.replace({ path: '/' })
