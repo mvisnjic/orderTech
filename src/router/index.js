@@ -4,6 +4,8 @@ import login from '../views/loginScreen.vue'
 import signup from '../views/signUpScreen.vue'
 import addVehicle from '../views/addVehicle.vue'
 import order from '../views/orderNow.vue'
+import chooseStation from '../views/chooseStation.vue'
+
 import { store } from '../store'
 const routes = [
     {
@@ -34,6 +36,12 @@ const routes = [
         name: 'order',
         component: order,
         meta: { title: 'Order Now | OrderTech' },
+    },
+    {
+        path: '/chooseStation',
+        name: 'chooseStation',
+        component: chooseStation,
+        meta: { title: 'Choose Station| OrderTech' },
     },
 ]
 const router = createRouter({

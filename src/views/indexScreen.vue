@@ -2,7 +2,7 @@
     <div class="grid grid-cols-3">
         <div class="grid content-center justify-items-center">
             <router-link
-                to="/order"
+                to="/chooseStation"
                 class="bg-[#E55050] text-white p-4 w-3/6 rounded-full tracking-wide font-semibold font-display hover:bg-red-600"
             >
                 Order Now
