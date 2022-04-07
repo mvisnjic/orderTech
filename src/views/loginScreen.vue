@@ -9,7 +9,7 @@
                     <div
                         class="text-sm font-bold text-black-900 tracking-wide pb-[5px]"
                     >
-                        Email Adress
+                        Email Address
                     </div>
                     <input
                         v-model="username"
@@ -39,6 +39,7 @@
                         type="password"
                         placeholder="Enter your password"
                         required
+                        v-on:keyup.enter="login"
                     />
                 </div>
                 <div class="mt-10">
@@ -80,15 +81,15 @@ export default {
     methods: {
         login() {
             console.log('logging ' + this.username)
-                const auth = getAuth()
-                signInWithEmailAndPassword(auth, this.username, this.password)
-                .then((result) => {
+            const auth = getAuth()
+            signInWithEmailAndPassword(auth, this.username, this.password)
+                .then(() => {
                     //changing routes
                     this.$router.replace({ path: '/' })
-                    // console.log(result.user.email)
                 })
                 .catch((e) => {
-                    console.log('Greška', e)
+                    console.log('Error:', e.message)
+                    alert(e.message)
                 })
         },
     },

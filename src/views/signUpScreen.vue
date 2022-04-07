@@ -39,7 +39,7 @@
                     <div
                         class="text-sm font-bold text-black-900 tracking-wide pb-[5px]"
                     >
-                        Email Adress
+                        Email Address
                     </div>
                     <input
                         class="w-full text-lg py-2 border-b bg-[#FCFCFF]"
@@ -64,6 +64,12 @@
                         placeholder="Enter your password"
                         required
                     />
+                    <label
+                        for="passwordWarning"
+                        v-if="password.length < 6"
+                        class="text-[#E55050] text-sm font-display font-semibold"
+                        >Password must contain at least 6 character</label
+                    >
                 </div>
                 <div class="mt-8">
                     <div class="flex justify-between items-center">
@@ -85,6 +91,9 @@
                     <button
                         type="button"
                         @click="signup()"
+                        :disabled="
+                            password !== passwordRepeat && password.length < 6
+                        "
                         class="bg-[#E55050] text-white p-4 w-full rounded-full tracking-wide font-semibold font-display hover:bg-red-600"
                     >
                         Sign up
@@ -108,7 +117,12 @@
 <script>
 import { firebase } from '../firebase'
 import { db } from '../firebase'
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
+import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    updateProfile,
+} from 'firebase/auth'
+import { doc, setDoc } from 'firebase/firestore'
 import { store } from '../store'
 export default {
     name: 'signUpScreen',
@@ -125,21 +139,31 @@ export default {
         signup() {
             const auth = getAuth()
             createUserWithEmailAndPassword(auth, this.username, this.password)
-                .then(() => {
-                    store.currentUser = this.username
-                    db.collection('users').add({
-                        firstName: this.firstName,
+                .then((userCredential) => {
+                    const user = userCredential.user
+                    const uid = user.uid
+                    store.currentFirstName = this.firstName
+                    // console.log(user)
+                    // add new user in document with uid from auth
+                    setDoc(doc(db, 'users', uid), {
+                        name: this.firstName,
                         lastName: this.lastName,
-                        username: this.username,
+                        email: user.email,
                     })
-                    console.log('Reg Success! Email: ' + this.username)
+                    console.log('Reg Success! Email: ' + user.email)
                 })
                 .then(() => {
+                    // for updating profile on signup
+                    updateProfile(auth.currentUser, {
+                        displayName: this.firstName,
+                        // photoURL: 'https://example.com/jane-q-user/profile.jpg',
+                    })
                     this.$router.replace({ path: '/' })
                 })
                 .catch((e) => {
-                    console.error(e)
-                    store.currentUser = null
+                    console.error(e.message)
+                    alert(e.message)
+                    store.currentFirstName = null
                 })
         },
     },

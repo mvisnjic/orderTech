@@ -11,27 +11,27 @@
             </div>
             <div class="text-[20px] flex flex-row justify-center space-x-5">
                 <div
-                    v-if="store.currentUser"
+                    v-if="store.currentUserEmail"
                     class="text-[#E55050] hover:text-red-800 hover:font-bold"
                 >
                     <router-link to="/">Home</router-link>
                 </div>
                 <div
-                    v-if="store.currentUser"
+                    v-if="store.currentUserEmail"
                     class="text-[#E55050] hover:text-red-800 hover:font-bold"
                 >
                     <router-link to="/addvehicle">My Cars</router-link>
                 </div>
 
                 <div
-                    v-if="!store.currentUser"
+                    v-if="!store.currentUserEmail"
                     class="text-[#E55050] hover:text-red-800 hover:font-bold"
                 >
                     <router-link to="/login">Login</router-link>
                 </div>
 
                 <div
-                    v-if="!store.currentUser"
+                    v-if="!store.currentUserEmail"
                     class="text-[#E55050] hover:text-red-800 hover:font-bold"
                 >
                     <router-link to="/signup">Sign up</router-link>
@@ -39,39 +39,37 @@
 
                 <a
                     href="#"
-                    v-if="store.currentUser"
+                    v-if="store.currentUserEmail"
                     class="text-[#E55050] hover:text-red-800 hover:font-bold"
                     @click="signout()"
                 >
                     Log out
                 </a>
             </div>
-            {{ store.currentUser }}
+            <p v-if="store.currentFirstName" class="font-bold text-xl">
+                Hi, {{ store.currentFirstName }}
+            </p>
         </div>
         <router-view />
     </div>
 </template>
 
-<script setup>
-
-
-</script>
-
 <script>
 import { firebase, db } from './firebase'
 import { store } from './store'
-import { onAuthStateChanged, getAuth,  signOut } from 'firebase/auth'
-
+import { onAuthStateChanged, getAuth, signOut } from 'firebase/auth'
 
 const auth = getAuth()
 //monitoring the user's login status
 onAuthStateChanged(auth, (user) => {
     if (user) {
-        store.currentUser = user.email
-        localStorage.setItem('checkLogedUser', store.currentUser)
-        console.log('Success', store.currentUser)
+        store.currentUserEmail = user.email
+        localStorage.setItem('checkLogedUser', store.currentUserEmail)
+        store.currentFirstName = user.displayName
+        console.log('Success', store.currentFirstName)
     } else {
-        store.currentUser = null
+        store.currentUserEmail = null
+        store.currentFirstName = null
         localStorage.clear()
     }
 })
@@ -89,8 +87,7 @@ export default {
     },
     methods: {
         signout() {
-            //const auth = getAuth();
-                signOut(auth)
+            signOut(auth)
                 .then(() => {
                     this.$router.replace({ name: 'Login' })
                 })
@@ -99,9 +96,6 @@ export default {
                 })
         },
     },
-    /*mounted() {
-        getData()
-    },*/
 }
 </script>
 

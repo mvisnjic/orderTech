@@ -56,7 +56,7 @@ router.afterEach((to) => {
 
 router.beforeEach((to) => {
     if (
-        !localStorage.getItem('checkLogedUser', store.currentUser) &&
+        !localStorage.getItem('checkLogedUser', store.currentUserEmail) &&
         to.path !== '/login' &&
         to.path !== '/signup'
     ) {
