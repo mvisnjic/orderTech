@@ -41,7 +41,7 @@ const routes = [
         path: '/chooseStation',
         name: 'chooseStation',
         component: chooseStation,
-        meta: { title: 'Choose Station| OrderTech' },
+        meta: { title: 'Choose Station | OrderTech' },
     },
 ]
 const router = createRouter({
