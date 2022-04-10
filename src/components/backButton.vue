@@ -1,5 +1,5 @@
 <template>
-    <div class="absolute mx-12 lg:mx-56 my-6">
+    <div class="absolute mx-12 lg:mx-96 my-12">
         <button @click="goBack">
             <svg
                 class="svg"
