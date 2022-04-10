@@ -79,6 +79,7 @@ export default {
     firestore: {
         users: db.collection('users'),
     },
+
     data() {
         return {
             store,

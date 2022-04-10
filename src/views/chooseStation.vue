@@ -1,7 +1,8 @@
 <template>
+    <backButton />
     <Listbox as="div" v-model="selected">
         <ListboxLabel
-            class="flex justify-center mx-auto mt-12 w-[490px] text-center text-3xl font-bold text-black-900"
+            class="flex justify-center mx-auto mt-24 sm:mt-12 w-[490px] text-center text-3xl font-bold text-black-900"
         >
             Select a station for technical inspection
         </ListboxLabel>
@@ -9,6 +10,10 @@
             <ListboxButton
                 class="relative w-[400px] h-[48px] sm:w-[500px] bg-white border border-gray-300 rounded-full shadow-md pl-3 py-2 text-left sm:text-md"
             >
+                <img
+                    src="/src/assets/sort.png"
+                    class="absolute flex-initial h-[25px] ml-[345px] sm:ml-[445px] mt-0"
+                />
                 <span v-if="selected" class="ml-3">{{
                     selected.stationName
                 }}</span>
@@ -39,7 +44,7 @@
                             <span
                                 :class="[
                                     selected ? 'font-bold' : 'font-normal',
-                                    'ml-3',
+                                    'ml-3 cursor-default',
                                 ]"
                             >
                                 {{ station.stationName }}
@@ -71,6 +76,7 @@ import { db } from '../firebase'
 import { collection, getDocs, query, setDoc, doc } from 'firebase/firestore'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { store } from '../store'
+import backButton from '../components/backButton.vue'
 import {
     Listbox,
     ListboxButton,
@@ -96,6 +102,7 @@ export default {
         ListboxLabel,
         ListboxOption,
         ListboxOptions,
+        backButton,
     },
     data() {
         return {
@@ -119,7 +126,6 @@ export default {
     methods: {
         async selectStaton() {
             const q = query(collection(db, 'users'))
-
             const querySnapshot = await getDocs(q)
             querySnapshot.docs.map(async () => {
                 await setDoc(
