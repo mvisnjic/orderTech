@@ -2,11 +2,11 @@
     <backButton />
     <Listbox as="div" v-model="selected">
         <ListboxLabel
-            class="flex justify-center mx-auto mt-24 sm:mt-12 w-[490px] text-center text-3xl font-bold text-black-900"
+            class="flex justify-center mx-auto mt-24 sm:mt-16 lg:mt-20 w-[490px] text-center text-2xl px-12 sm:text-3xl font-bold text-black-900"
         >
             Select a station for technical inspection
         </ListboxLabel>
-        <div class="mt-12 relative">
+        <div class="mt-8 sm:mt-12 relative">
             <ListboxButton
                 class="relative w-[400px] h-[48px] sm:w-[500px] bg-white border border-gray-300 rounded-full shadow-md pl-3 py-2 text-left sm:text-md"
             >
@@ -56,7 +56,7 @@
         </div>
     </Listbox>
 
-    <div class="mt-10">
+    <div class="mt-8 sm:mt-10">
         <button
             type="button"
             @click="selectStaton()"
