@@ -1,7 +1,7 @@
 <template>
-    <div class="flex justify-center">
+    <div class="flex justify-center pt-0 md:pt-6">
         <div
-            class="absolute flex w-11/12 sm:w-5/6 lg:w-5/6 h-[770px] sm:h-[780px] shadow-2xl rounded-xl mt-6 sm:mt-8 overflow-auto"
+            class="absolute flex w-11/12 sm:w-5/6 lg:w-5/6 h-[780px] shadow-2xl rounded-xl mt-6 sm:mt-8"
         >
             <div class="mx-6 sm:mx-12 my-6 sm:my-8 lg:my-12">
                 <button @click="goBack">
