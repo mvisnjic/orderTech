@@ -21,6 +21,12 @@
                         placeholder="WAUZZZ4BZWN049194"
                         required
                     />
+                    <label
+                        for="IdentificationWarning"
+                        v-if="identification.length == 17"
+                        class="text-[#E55050] text-sm font-display font-semibold"
+                        >Identification number must contain 17 character</label
+                    >
                 </div>
                 <div class="mt-8">
                     <div class="flex justify-between items-center">
@@ -36,7 +42,6 @@
                         type="text"
                         placeholder="PU533SM"
                         required
-                        v-on:keyup.enter="login"
                     />
                 </div>
                 <div class="flex flex-row space-x-9">
@@ -66,6 +71,7 @@
                             v-model="carModel"
                             placeholder="M4"
                             required
+                            v-on:keyup.enter="add"
                         />
                     </div>
                 </div>
@@ -73,7 +79,7 @@
                     <button
                         class="bg-[#E55050] text-white p-4 w-full rounded-full tracking-wide font-semibold font-display hover:bg-red-600"
                         type="button"
-                        @click="login()"
+                        @click="addCar()"
                     >
                         Add
                     </button>
@@ -89,12 +95,56 @@
 </template>
 
 <script>
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import { db } from '../firebase'
+import { collection, getDocs, query, setDoc, doc } from 'firebase/firestore'
+import { store } from '../store'
+
+const auth = getAuth()
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        store.currentUid = user.uid
+        console.log(user.uid)
+    } else {
+        store.currentUid = null
+    }
+})
 export default {
     name: 'popUpCar',
     props: {
         open: {
             type: Boolean,
             required: true,
+        },
+    },
+
+    data() {
+        return {
+            identification: '',
+            registration: '',
+            carBrand: '',
+            carModel: '',
+        }
+    },
+    methods: {
+        async addCar() {
+            const q = query(collection(db, 'users'))
+            const querySnapshot = await getDocs(q)
+            querySnapshot.docs.map(async () => {
+                await setDoc(
+                    doc(
+                        db,
+                        `users/${store.currentUid}/cars/${this.registration}`
+                    ),
+                    {
+                        identificationNumber: this.identification,
+                        registration: this.registration,
+                        carBrand: this.carBrand,
+                        carModel: this.carModel,
+                    }
+                )
+            })
+            alert('Successfully added car!')
         },
     },
 }
