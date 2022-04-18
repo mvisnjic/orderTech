@@ -8,11 +8,13 @@
         </ListboxLabel>
         <div class="mt-8 sm:mt-12 relative">
             <ListboxButton
+                v-slot="{ open }"
                 class="relative w-[400px] h-[48px] sm:w-[500px] bg-white border border-gray-300 rounded-full shadow-md pl-3 py-2 text-left sm:text-md"
             >
                 <img
-                    src="/src/assets/sort.png"
+                    src="/src/assets/down-arrow.svg"
                     class="absolute flex-initial h-[25px] ml-[345px] sm:ml-[445px] mt-0"
+                    :class="[open ? 'rotate-180' : '']"
                 />
                 <span v-if="selected" class="ml-3">{{
                     selected.stationName

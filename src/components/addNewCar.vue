@@ -1,6 +1,6 @@
 <template>
     <div
-        class="rounded-3xl bg-[#E55050] h-[150px] w-[250px] md:w-[230px] lg:w-[250px] grid content-center opacity-90 hover:opacity-100"
+        class="rounded-3xl bg-[#E55050] h-[150px] w-[250px] md:w-[230px] lg:w-[250px] grid content-center opacity-90 hover:opacity-100 transition"
     >
         <div>
             <img
