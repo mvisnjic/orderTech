@@ -23,7 +23,7 @@
                     />
                     <label
                         for="IdentificationWarning"
-                        v-if="identification.length == 17"
+                        v-if="identification.length !== 17"
                         class="text-[#E55050] text-sm font-display font-semibold"
                         >Identification number must contain 17 character</label
                     >
@@ -71,7 +71,6 @@
                             v-model="carModel"
                             placeholder="M4"
                             required
-                            v-on:keyup.enter="add"
                         />
                     </div>
                 </div>
@@ -79,7 +78,13 @@
                     <button
                         class="bg-[#E55050] text-white p-4 w-full rounded-full tracking-wide font-semibold font-display hover:bg-red-600"
                         type="button"
-                        @click="addCar()"
+                        @click="addCar($emit('close'))"
+                        v-if="
+                            identification !== '' &&
+                            registration !== '' &&
+                            carBrand !== '' &&
+                            carModel !== ''
+                        "
                     >
                         Add
                     </button>
@@ -144,7 +149,10 @@ export default {
                     }
                 )
             })
-            alert('Successfully added car!')
+            ;(this.identification = ''),
+                (this.registration = ''),
+                (this.carBrand = ''),
+                (this.carModel = '')
         },
     },
 }
