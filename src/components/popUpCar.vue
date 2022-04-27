@@ -153,6 +153,7 @@ export default {
                 (this.registration = ''),
                 (this.carBrand = ''),
                 (this.carModel = '')
+            this.$router.replace({ path: '/' })
         },
     },
 }

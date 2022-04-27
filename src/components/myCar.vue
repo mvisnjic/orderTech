@@ -10,8 +10,9 @@
             />
         </div>
         <div class="font-bold">
-            <p>My car name</p>
-            <p>PU533SM</p>
+            <p>{{ carBrand }} {{ carModel }}</p>
+            <p>{{ registration }}</p>
+            <p>{{ identification }}</p>
         </div>
     </div>
 </template>
@@ -19,5 +20,6 @@
 <script>
 export default {
     name: 'myCar',
+    props: ['carModel', 'carBrand', 'identification', 'registration'],
 }
 </script>
