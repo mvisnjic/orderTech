@@ -139,7 +139,7 @@ export default {
                 await setDoc(
                     doc(
                         db,
-                        `users/${store.currentUid}/cars/${this.registration}`
+                        `users/${store.currentUid}/cars/${this.identification}`
                     ),
                     {
                         identificationNumber: this.identification,
