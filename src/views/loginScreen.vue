@@ -17,6 +17,7 @@
                         type="email"
                         placeholder="name@gmail.com"
                         required
+                        autocomplete="username"
                     />
                 </div>
                 <div class="mt-8">
@@ -40,6 +41,7 @@
                         placeholder="Enter your password"
                         required
                         v-on:keyup.enter="login"
+                        autocomplete="current-password"
                     />
                 </div>
                 <div class="mt-10">
@@ -86,6 +88,7 @@ export default {
                 .then(() => {
                     //changing routes
                     this.$router.replace({ path: '/' })
+                    console.log(`Hello ${store.currentFirstName}!`)
                 })
                 .catch((e) => {
                     console.log('Error:', e.message)

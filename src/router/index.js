@@ -5,7 +5,7 @@ import signup from '../views/signUpScreen.vue'
 import addVehicle from '../views/addVehicle.vue'
 import order from '../views/orderNow.vue'
 import chooseStation from '../views/chooseStation.vue'
-
+import NotFound from '../views/404.vue'
 import { store } from '../store'
 const routes = [
     {
@@ -43,6 +43,11 @@ const routes = [
         component: chooseStation,
         meta: { title: 'Choose Station | OrderTech' },
     },
+    {
+        path: '/:pathMatch(.*)*',
+        name: 'NotFound',
+        component: NotFound,
+    },
 ]
 const router = createRouter({
     history: createWebHistory(),
@@ -56,9 +61,10 @@ router.afterEach((to) => {
 
 router.beforeEach((to) => {
     if (
-        !localStorage.getItem('checkLogedUser', store.currentUserEmail) &&
+        !localStorage.getItem('checkLogedUser') &&
         to.path !== '/login' &&
-        to.path !== '/signup'
+        to.path !== '/signup' &&
+        to.path !== '/404'
     ) {
         return { path: '/login' }
     }
