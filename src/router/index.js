@@ -1,12 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import notFound from '../views/404.vue'
+import addVehicle from '../views/addVehicle.vue'
+import chooseStation from '../views/chooseStation.vue'
 import index from '../views/indexScreen.vue'
 import login from '../views/loginScreen.vue'
+import selectDate from '../views/selectDate.vue'
 import signup from '../views/signUpScreen.vue'
-import addVehicle from '../views/addVehicle.vue'
-import order from '../views/orderNow.vue'
-import chooseStation from '../views/chooseStation.vue'
-import NotFound from '../views/404.vue'
-import { store } from '../store'
 const routes = [
     {
         path: '/',
@@ -32,10 +31,10 @@ const routes = [
         meta: { title: 'My Cars | OrderTech' },
     },
     {
-        path: '/order',
-        name: 'order',
-        component: order,
-        meta: { title: 'Order Now | OrderTech' },
+        path: '/selectdate',
+        name: 'selectDate',
+        component: selectDate,
+        meta: { title: 'Select a date | OrderTech' },
     },
     {
         path: '/chooseStation',
@@ -46,7 +45,7 @@ const routes = [
     {
         path: '/:pathMatch(.*)*',
         name: 'NotFound',
-        component: NotFound,
+        component: notFound,
     },
 ]
 const router = createRouter({

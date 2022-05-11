@@ -43,12 +43,16 @@
                         v-on:keyup.enter="login"
                         autocomplete="current-password"
                     />
+                    <span class="text-[#E55050]" v-if="password == ''">{{
+                        errorMsg
+                    }}</span>
                 </div>
                 <div class="mt-10">
                     <button
                         class="bg-[#E55050] text-white p-4 w-full rounded-full tracking-wide font-semibold font-display hover:bg-red-600"
                         type="button"
                         @click="login()"
+                        :disabled="username && password === ''"
                     >
                         Log in
                     </button>
@@ -72,12 +76,15 @@
 import { firebase } from '../firebase'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { store } from '../store'
+
+
 export default {
     name: 'loginScreen',
     data() {
         return {
             username: '',
             password: '',
+            errorMsg: null,
         }
     },
     methods: {
@@ -92,9 +99,12 @@ export default {
                 })
                 .catch((e) => {
                     console.log('Error:', e.message)
-                    alert(e.message)
+                    // alert(e.message)
+                    this.password = ''
+                    this.errorMsg = 'Error: Wrong password or email!'
                 })
         },
     },
 }
 </script>
+
