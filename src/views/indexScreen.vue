@@ -1,16 +1,18 @@
 <template>
-    <div class="grid grid-cols-3">
-        <div class="grid content-center justify-items-center">
+    <div class="grid grid-rows-1 lg:grid-cols-3 px-4 lg:px-0">
+        <div
+            class="grid content-center justify-items-center pt-16 pb-8 md:pt-16 md:pb-8 lg:pt-0 lg:pb-0"
+        >
             <router-link
-                to="/order"
+                to="/chooseStation"
                 class="bg-[#E55050] text-white p-4 w-3/6 rounded-full tracking-wide font-semibold font-display hover:bg-red-600"
             >
                 Order Now
             </router-link>
         </div>
-        <div>
+        <div class="order-first lg:order-none">
             <img class="mx-auto" alt="Vue logo" src="../assets/logo.gif" />
-            <div class="font-bold text-2xl">
+            <div class="font-bold text-xl lg:text-2xl">
                 <!-- <p>Naručite tehnički pregled Vašeg vozila!</p> -->
                 <!-- <p>Lako i besplatno u samo nekoliko koraka!</p> -->
                 <p>Order a technical inspection for your vehicle!</p>
