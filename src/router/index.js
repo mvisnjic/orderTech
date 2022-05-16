@@ -1,12 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import notFound from '../views/404.vue'
+import addVehicle from '../views/addVehicle.vue'
+import chooseStation from '../views/chooseStation.vue'
 import index from '../views/indexScreen.vue'
 import login from '../views/loginScreen.vue'
+import selectDate from '../views/selectDate.vue'
 import signup from '../views/signUpScreen.vue'
-import addVehicle from '../views/addVehicle.vue'
-import order from '../views/orderNow.vue'
-import chooseStation from '../views/chooseStation.vue'
-
-import { store } from '../store'
 const routes = [
     {
         path: '/',
@@ -32,16 +31,21 @@ const routes = [
         meta: { title: 'My Cars | OrderTech' },
     },
     {
-        path: '/order',
-        name: 'order',
-        component: order,
-        meta: { title: 'Order Now | OrderTech' },
+        path: '/selectdate',
+        name: 'selectDate',
+        component: selectDate,
+        meta: { title: 'Select a date | OrderTech' },
     },
     {
         path: '/chooseStation',
         name: 'chooseStation',
         component: chooseStation,
         meta: { title: 'Choose Station | OrderTech' },
+    },
+    {
+        path: '/:pathMatch(.*)*',
+        name: 'NotFound',
+        component: notFound,
     },
 ]
 const router = createRouter({
@@ -56,9 +60,10 @@ router.afterEach((to) => {
 
 router.beforeEach((to) => {
     if (
-        !localStorage.getItem('checkLogedUser', store.currentUserEmail) &&
+        !localStorage.getItem('checkLogedUser') &&
         to.path !== '/login' &&
-        to.path !== '/signup'
+        to.path !== '/signup' &&
+        to.path !== '/404'
     ) {
         return { path: '/login' }
     }

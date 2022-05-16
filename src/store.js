@@ -4,5 +4,4 @@ export const store = reactive({
     currentUserEmail: null,
     currentUid: null,
     currentFirstName: null,
-    currentLastName: null,
 })

@@ -105,15 +105,15 @@ import { db } from '../firebase'
 import { collection, getDocs, query, setDoc, doc } from 'firebase/firestore'
 import { store } from '../store'
 
-const auth = getAuth()
+/* const auth = getAuth()
 onAuthStateChanged(auth, (user) => {
     if (user) {
         store.currentUid = user.uid
-        console.log(user.uid)
+        // console.log(user.uid)
     } else {
         store.currentUid = null
     }
-})
+}) */
 export default {
     name: 'popUpCar',
     props: {

@@ -1,3 +1,4 @@
+<script></script>
 <template>
     <div class="flex items-center justify-center py-14 px-5 sm:px-7 lg:px-9">
         <div class="max-w-md w-full space-y-8 px-4 sm:px-0">
@@ -47,6 +48,7 @@
                         v-model="username"
                         placeholder="name@gmail.com"
                         required
+                        autocomplete="email"
                     />
                 </div>
                 <div class="mt-8">
@@ -63,6 +65,7 @@
                         v-model="password"
                         placeholder="Enter your password"
                         required
+                        autocomplete="new-password"
                     />
                     <label
                         for="passwordWarning"
@@ -81,11 +84,16 @@
                     </div>
                     <input
                         class="w-full text-lg py-2 border-b bg-[#FCFCFF]"
-                        type="password"
+                        type="passwordrepeat"
                         v-model="passwordRepeat"
                         placeholder="Enter your password"
                         required
                     />
+                    <span
+                        v-if="password && passwordRepeat !== password"
+                        class="text-[#E55050] text-sm font-display font-semibold"
+                        >Password doesn't match</span
+                    >
                 </div>
                 <div class="mt-10">
                     <button

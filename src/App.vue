@@ -11,7 +11,7 @@
             </div>
 
             <div
-                class="absolute flex justify-self-end top-8 sm:top-2 mr-8 sm:mt-6 block md:hidden"
+                class="absolute flex justify-self-end top-8 sm:top-2 mr-8 sm:mt-6 md:hidden"
             >
                 <button
                     @click="toggle"
@@ -92,7 +92,7 @@ onAuthStateChanged(auth, (user) => {
         store.currentUserEmail = user.email
         localStorage.setItem('checkLogedUser', store.currentUserEmail)
         store.currentFirstName = user.displayName
-        console.log('Success', store.currentFirstName)
+        store.currentUid = user.uid
     } else {
         store.currentUserEmail = null
         store.currentFirstName = null
