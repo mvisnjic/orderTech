@@ -18,7 +18,7 @@
                     is24hr
                     :min-date="new Date()"
                     :max-date="dateMax"
-                    :disabled-dates="{ weekdays: [1, 7] }"
+                    :disabled-dates="{ weekdays: [1, 8] }"
                     :valid-hours="{ min: 8, max: 18 }"
                     :first-day-of-week="2"
                     :minute-increment="30"
@@ -29,9 +29,9 @@
             <button
                 class="bg-[#E55050] text-white p-4 w-full rounded-full tracking-wide font-semibold font-display hover:bg-red-600"
                 type="button"
-                @click="next"
+                @click.once="next"
             >
-                Next
+                Order
             </button>
         </div>
     </div>
@@ -39,8 +39,11 @@
 <script>
 import { DatePicker } from 'v-calendar'
 import 'v-calendar/dist/style.css'
+import { db } from '../firebase'
 import backButton from '../components/backButton.vue'
-
+import { collection, doc, setDoc, addDoc, updateDoc } from "firebase/firestore"; 
+import { store } from '../store'
+const now = new Date()
 export default {
     components: {
         backButton,
@@ -49,7 +52,8 @@ export default {
     },
     data() {
         return {
-            date: new Date().setHours(12, 0, 0),
+            date: new Date().setHours(0, 0, 0),
+            // date: '',
             dateMax: new Date().setFullYear(
                 this.setYear(),
                 this.setMonth(),
@@ -59,22 +63,39 @@ export default {
     },
     methods: {
         setDay() {
-            const now = new Date()
+            
             const dayNumber = now.getDate()
-            return dayNumber + 14
+            return dayNumber + 21
         },
         setMonth() {
-            const now = new Date()
             const month = now.getMonth()
             return month
         },
         setYear() {
-            const now = new Date()
             const year = now.getFullYear()
             return year
         },
+        getSelectedDate(date){
+            date = this.date.toString().split(' ')
+            return date[2] + " " + date [1] + " " + date[3]
+        },
+        getSelectedTime(time){
+            time = this.date.toString().split(' ')
+            return time[4] 
+        },
+        async next() {
+            const docRef = await setDoc(
+                    doc(
+                        db,
+                        `users/${store.currentUid}/orders/date`
+                    ),
+                    {
+                        date: this.getSelectedDate(this.date),
+                        time: this.getSelectedTime(this.date),
+                    }
+                )
+            console.log("Date added successfully.");
+        }
     },
 }
 </script>
-
-<style></style>

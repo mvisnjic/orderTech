@@ -137,8 +137,7 @@ export default {
                 await setDoc(
                     doc(
                         db,
-                        `users/${store.currentUid}/orders`,
-                        store.currentUid
+                        `users/${store.currentUid}/orders/station`
                     ),
                     {
                         station: this.selected,
