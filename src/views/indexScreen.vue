@@ -4,7 +4,7 @@
             class="grid content-center justify-items-center pt-16 pb-8 md:pt-16 md:pb-8 lg:pt-0 lg:pb-0"
         >
             <router-link
-                to="/chooseStation"
+                to="/chooseCar"
                 class="bg-[#E55050] text-white p-4 w-3/6 rounded-full tracking-wide font-semibold font-display hover:bg-red-600"
             >
                 Order Now

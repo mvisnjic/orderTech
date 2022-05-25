@@ -8,7 +8,7 @@
             <h2 class="mt-6 text-3xl font-bold text-black-900 pb-7">My Cars</h2>
 
             <div
-                class="overflow-auto mt-1 sm:mt-8 grid grid-cols-1 gap-6 justify-center md:grid-cols-2 lg:grid-cols-3 lg:gap-8"
+                class="overflow-auto mt-1 sm:my-8 grid grid-cols-1 gap-6 justify-center md:grid-cols-2 lg:grid-cols-3 lg:gap-8"
             >
                 <button @click="isOpen = true"><addNewCar /></button>
                 <myCar
@@ -34,7 +34,7 @@ import popUpCar from '../components/popUpCar.vue'
 import { ref } from 'vue'
 import { db } from '../firebase'
 import { store } from '../store'
-import { collection, getDocs } from 'firebase/firestore'
+import { collection, query, onSnapshot } from 'firebase/firestore'
 
 export default {
     components: {
@@ -54,24 +54,20 @@ export default {
     },
     methods: {
         async getCars() {
-            /*db.collection('users')
-                .doc(store.currentUid)
-                .collection('cars')
-                .get()
-                .then((snap) => {
-                    snap.forEach((doc) => {
-                        this.cars.push(doc.data())
-                        console.log(this.cars)
-                    })
-                })  */
-
+            const q = query(collection(db, `users/${store.currentUid}/cars`))
+            onSnapshot(q, (snapshot) => {
+                snapshot.docChanges().forEach((change) => {
+                    this.cars.push(change.doc.data())
+                })
+            })
+            /*
             const querySnapshot = await getDocs(
                 collection(db, `users/${store.currentUid}/cars`)
             )
             querySnapshot.forEach((doc) => {
                 this.cars.push(doc.data())
                 console.log(this.cars)
-            })
+            })*/
         },
     },
     mounted() {

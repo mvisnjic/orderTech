@@ -1,6 +1,6 @@
 <template>
     <div
-        class="mx-auto flex mt-12 w-[470px] h-[650px] sm:w-[600px] sm:h-[600px] lg:w-[950px] lg:h-[600px] rounded-3xl shadow-2xl"
+        class="mx-auto flex mt-12 w-[360px] h-[650px] sm:w-[600px] sm:h-[600px] lg:w-[950px] lg:h-[600px] rounded-3xl shadow-2xl"
         v-show="open"
     >
         <div class="mx-auto mt-8 max-w-md w-full space-y-8 px-4 sm:px-0">
@@ -114,6 +114,7 @@ onAuthStateChanged(auth, (user) => {
         store.currentUid = null
     }
 }) */
+
 export default {
     name: 'popUpCar',
     props: {
@@ -141,6 +142,7 @@ export default {
                         db,
                         `users/${store.currentUid}/cars/${this.identification}`
                     ),
+
                     {
                         identificationNumber: this.identification,
                         registration: this.registration,
@@ -153,7 +155,7 @@ export default {
                 (this.registration = ''),
                 (this.carBrand = ''),
                 (this.carModel = '')
-            this.$router.replace({ path: '/' })
+            this.$forceUpdate()
         },
     },
 }

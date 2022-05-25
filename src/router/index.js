@@ -6,6 +6,9 @@ import index from '../views/indexScreen.vue'
 import login from '../views/loginScreen.vue'
 import selectDate from '../views/selectDate.vue'
 import signup from '../views/signUpScreen.vue'
+import chooseCar from '../views/chooseCar.vue'
+import successOrder from '../views/successOrder.vue'
+
 const routes = [
     {
         path: '/',
@@ -46,6 +49,16 @@ const routes = [
         path: '/:pathMatch(.*)*',
         name: 'NotFound',
         component: notFound,
+    },
+    {
+        path: '/chooseCar',
+        name: 'chooseCar',
+        component: chooseCar,
+    },
+    {
+        path: '/successOrder',
+        name: 'successOrder',
+        component: successOrder,
     },
 ]
 const router = createRouter({

@@ -2,7 +2,7 @@
     <div
         class="absolute mx-12 sm:mx-32 md:mx-32 lg:mx-64 xl:mx-96 my-12 lg:my-14"
     >
-        <button @click="goBack">
+        <button @click="goBack()">
             <svg
                 class="svg"
                 xmlns="http://www.w3.org/2000/svg"
