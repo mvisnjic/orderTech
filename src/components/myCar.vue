@@ -6,7 +6,7 @@
             <img
                 src="../assets/carIcon.png"
                 alt="car icon"
-                class="w-[100px] mx-auto"
+                class="w-[120px] mx-auto mt-2"
             />
         </div>
         <div class="font-bold">
