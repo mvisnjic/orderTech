@@ -5,7 +5,7 @@
     >
         <Listbox as="div" v-model="selected">
             <ListboxLabel
-                class="flex justify-center mx-auto mt-6 pt-6 sm:mt-6 lg:mt-6 lg:pt-6 w-[490px] text-center text-2xl pl-12 pr-44 pl-16 sm:pr-16 sm:pl-0 md:px-12 sm:text-3xl font-bold text-black-900"
+                class="flex justify-center mx-auto mt-6 pt-6 sm:mt-6 lg:mt-6 lg:pt-6 w-[490px] text-center text-2xl pl-12 pr-44 sm:pr-16 sm:pl-0 md:px-12 sm:text-3xl font-bold text-black-900"
             >
                 Select a station for technical inspection
             </ListboxLabel>
@@ -81,7 +81,7 @@
 <script>
 import { ref } from 'vue'
 import { db } from '../firebase'
-import { collection, getDocs, query, setDoc, doc } from 'firebase/firestore'
+import { collection, getDocs, query, updateDoc, doc } from 'firebase/firestore'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { store } from '../store'
 import backButton from '../components/backButton.vue'
@@ -135,9 +135,16 @@ export default {
         async selectStaton() {
             const q = query(collection(db, 'users'))
             const querySnapshot = await getDocs(q)
+            const selectedRegistration = localStorage.getItem(
+                'selectedRegistration'
+            )
+            localStorage.setItem('selectedStation', this.selected.stationName)
             querySnapshot.docs.map(async () => {
-                await setDoc(
-                    doc(db, `users/${store.currentUid}/orders/station`),
+                await updateDoc(
+                    doc(
+                        db,
+                        `users/${store.currentUid}/orders/${selectedRegistration}`
+                    ),
                     {
                         station: this.selected,
                     }

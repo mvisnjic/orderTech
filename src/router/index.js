@@ -8,7 +8,10 @@ import selectDate from '../views/selectDate.vue'
 import signup from '../views/signUpScreen.vue'
 import chooseCar from '../views/chooseCar.vue'
 import successOrder from '../views/successOrder.vue'
+import checkoutOrder from '../views/checkoutOrder.vue'
+import successCheckout from '../views/successCheckout.vue'
 import aboutCar from '../views/aboutCar.vue'
+
 
 const routes = [
     {
@@ -50,22 +53,38 @@ const routes = [
         path: '/:pathMatch(.*)*',
         name: 'NotFound',
         component: notFound,
+        meta: { title: 'Not found | OrderTech' },
     },
     {
         path: '/chooseCar',
         name: 'chooseCar',
         component: chooseCar,
+        meta: { title: 'Choose car | OrderTech' },
     },
     {
         path: '/successOrder',
         name: 'successOrder',
         component: successOrder,
+        meta: { title: 'Order success! | OrderTech' },
+    },
+    {
+        path: '/checkout',
+        name: 'checkoutOrder',
+        component: checkoutOrder,
+        meta: { title: 'Checkout | OrderTech' },
+    },
+    {
+        path: '/successcheckout',
+        name: 'successCheckout',
+        component: successCheckout,
+        meta: { title: 'Checkout success! | OrderTech' },
     },
     {
         path: '/aboutCar/:registration',
         name: 'aboutCar',
         component: aboutCar,
         props: true,
+        meta: { title: 'About car | OrderTech' },
     },
 ]
 const router = createRouter({

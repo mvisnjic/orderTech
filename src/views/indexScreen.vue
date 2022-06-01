@@ -20,11 +20,12 @@
             </div>
         </div>
         <div class="grid content-center justify-items-center">
-            <div
+            <router-link
                 class="bg-[#E55050] text-white p-4 w-3/6 rounded-full tracking-wide font-semibold font-display hover:bg-red-600"
+                to="/checkout"
             >
                 Checkout
-            </div>
+            </router-link>
         </div>
     </div>
     <div class="pt-[150px]">
