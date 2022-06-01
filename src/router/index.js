@@ -8,6 +8,7 @@ import selectDate from '../views/selectDate.vue'
 import signup from '../views/signUpScreen.vue'
 import chooseCar from '../views/chooseCar.vue'
 import successOrder from '../views/successOrder.vue'
+import aboutCar from '../views/aboutCar.vue'
 
 const routes = [
     {
@@ -59,6 +60,12 @@ const routes = [
         path: '/successOrder',
         name: 'successOrder',
         component: successOrder,
+    },
+    {
+        path: '/aboutCar/:registration',
+        name: 'aboutCar',
+        component: aboutCar,
+        props: true,
     },
 ]
 const router = createRouter({

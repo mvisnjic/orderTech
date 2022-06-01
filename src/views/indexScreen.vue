@@ -28,7 +28,7 @@
         </div>
     </div>
     <div class="pt-[150px]">
-        <p class="text-3xl font-bold text-[#E55050] mb-8">
+        <p class="text-3xl font-bold text-[#E55050]">
             Vehicle technical inspections
         </p>
         <stationCard :stations="stations" />
@@ -41,7 +41,7 @@
             <p class="text-lg text-white font-bold py-2">orderTech</p>
             <div class="flex flex-col py-3 gap-3 text-right">
                 <p class="text-md text-white border-b border-white pb-2">
-                    Contact: <b> 0954753911 </b>
+                    Contact: <b> 0951234567 </b>
                 </p>
                 <a
                     href="mailto:ordertech396@gmail.com"
