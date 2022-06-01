@@ -13,10 +13,10 @@
                 <button @click="isOpen = true"><addNewCar /></button>
                 <myCar
                     v-for="car in cars"
-                    :key="car.identification"
+                    :key="car.id"
                     :carBrand="car.carBrand"
                     :carModel="car.carModel"
-                    :identification="car.identification"
+                    :identification="car.identificationNumber"
                     :registration="car.registration"
                 />
             </div>
@@ -31,6 +31,7 @@ import myCar from '../components/myCar.vue'
 import addNewCar from '../components/addNewCar.vue'
 import backButton from '../components/backButton.vue'
 import popUpCar from '../components/popUpCar.vue'
+
 import { ref } from 'vue'
 import { db } from '../firebase'
 import { store } from '../store'
@@ -60,14 +61,6 @@ export default {
                     this.cars.push(change.doc.data())
                 })
             })
-            /*
-            const querySnapshot = await getDocs(
-                collection(db, `users/${store.currentUid}/cars`)
-            )
-            querySnapshot.forEach((doc) => {
-                this.cars.push(doc.data())
-                console.log(this.cars)
-            })*/
         },
     },
     mounted() {

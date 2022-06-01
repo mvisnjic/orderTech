@@ -10,6 +10,9 @@ import chooseCar from '../views/chooseCar.vue'
 import successOrder from '../views/successOrder.vue'
 import checkoutOrder from '../views/checkoutOrder.vue'
 import successCheckout from '../views/successCheckout.vue'
+import aboutCar from '../views/aboutCar.vue'
+
+
 const routes = [
     {
         path: '/',
@@ -75,6 +78,13 @@ const routes = [
         name: 'successCheckout',
         component: successCheckout,
         meta: { title: 'Checkout success! | OrderTech' },
+    },
+    {
+        path: '/aboutCar/:registration',
+        name: 'aboutCar',
+        component: aboutCar,
+        props: true,
+        meta: { title: 'About car | OrderTech' },
     },
 ]
 const router = createRouter({

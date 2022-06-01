@@ -2,17 +2,33 @@
     <div
         class="rounded-3xl bg-[#E55050] h-[150px] w-[250px] md:w-[230px] lg:w-[250px] grid grid-rows-2 items-center opacity-90 hover:opacity-100 transition"
     >
-        <div>
+        <div class="flex">
+            <router-link
+                :to="{
+                    name: 'aboutCar',
+                    params: {
+                        carBrand: carBrand,
+                        carModel: carModel,
+                        identification: identification,
+                        registration: registration,
+                    },
+                }"
+            >
+                <img
+                    src="../assets/delete.png"
+                    class="absolute flex mt-11 pl-2 h-[32px] hover:h-[34px]"
+                />
+            </router-link>
+
             <img
                 src="../assets/carIcon.png"
                 alt="car icon"
-                class="w-[100px] mx-auto"
+                class="w-[120px] mx-auto mt-6"
             />
         </div>
         <div class="font-bold">
             <p>{{ carBrand }} {{ carModel }}</p>
             <p>{{ registration }}</p>
-            <p>{{ identification }}</p>
         </div>
     </div>
 </template>
