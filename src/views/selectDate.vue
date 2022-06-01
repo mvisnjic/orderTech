@@ -16,7 +16,7 @@
                     v-model="date"
                     mode="dateTime"
                     is24hr
-                    :min-date="new Date()"
+                    :min-date="dateMin"
                     :max-date="dateMax"
                     :disabled-dates="{ weekdays: [1, 8] }"
                     :valid-hours="{ min: 8, max: 18 }"
@@ -25,15 +25,15 @@
                     color="red"
                 />
             </div>
-            <router-link to="/successOrder">
+            <div>
                 <button
                     class="bg-[#E55050] text-white p-4 w-[150px] rounded-full tracking-wide font-semibold font-display hover:bg-red-600"
                     type="button"
-                    @click.once="next"
+                    @click.prevent="order"
                 >
                     Order
                 </button>
-            </router-link>
+            </div>
         </div>
     </div>
 </template>
@@ -42,19 +42,21 @@ import { DatePicker } from 'v-calendar'
 import 'v-calendar/dist/style.css'
 import { db } from '../firebase'
 import backButton from '../components/backButton.vue'
-import { collection, doc, setDoc, addDoc, updateDoc } from 'firebase/firestore'
+import { doc, updateDoc } from 'firebase/firestore'
 import { store } from '../store'
-const now = new Date()
+import emailjs from '@emailjs/browser'
+
+const currDay = new Date().getDate() + 1
+
 export default {
     components: {
         backButton,
-        // Calendar,
         DatePicker,
     },
     data() {
         return {
             date: new Date().setHours(0, 0, 0),
-            // date: '',
+            dateMin: new Date().setDate(currDay),
             dateMax: new Date().setFullYear(
                 this.setYear(),
                 this.setMonth(),
@@ -64,15 +66,15 @@ export default {
     },
     methods: {
         setDay() {
-            const dayNumber = now.getDate()
+            const dayNumber = new Date().getDate()
             return dayNumber + 21
         },
         setMonth() {
-            const month = now.getMonth()
+            const month = new Date().getMonth()
             return month
         },
         setYear() {
-            const year = now.getFullYear()
+            const year = new Date().getFullYear()
             return year
         },
         getSelectedDate(date) {
@@ -83,15 +85,50 @@ export default {
             time = this.date.toString().split(' ')
             return time[4]
         },
-        async next() {
-            const docRef = await setDoc(
-                doc(db, `users/${store.currentUid}/orders/date`),
+        async order() {
+            const selectedRegistration = localStorage.getItem(
+                'selectedRegistration'
+            )
+            const selectedStation = localStorage.getItem('selectedStation')
+            await updateDoc(
+                doc(
+                    db,
+                    `users/${store.currentUid}/orders/${selectedRegistration}`
+                ),
                 {
                     date: this.getSelectedDate(this.date),
                     time: this.getSelectedTime(this.date),
                 }
             )
-            console.log('Date added successfully.')
+            const templateParams = {
+                subject: 'Order successful',
+                name: store.currentFirstName,
+                email: store.currentUserEmail,
+                notes: `Order successful for car:`,
+                reg: `Car registration: ${selectedRegistration}`,
+                station: `Station: ${selectedStation}`,
+                date: `Date: ${this.getSelectedDate(this.date)}`,
+                time: `Time: ${this.getSelectedTime(this.date)}`,
+            }
+            await emailjs
+                .send(
+                    'service_h0gze55',
+                    'template_2ciky8m',
+                    templateParams,
+                    'user_iIvXkBLH666mYU0g9CoKF'
+                )
+                .then(
+                    (res) => {
+                        console.log('SUCCESS!', res.status, res.text)
+                    },
+                    (e) => {
+                        console.log('Failed!', e)
+                    }
+                )
+
+            await this.$router.replace('/successorder')
+            localStorage.removeItem('selectedRegistration')
+            localStorage.removeItem('selectedStation')
         },
     },
 }
