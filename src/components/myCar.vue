@@ -5,7 +5,7 @@
         <div class="flex">
             <router-link
                 :to="{
-                    name: 'aboutCar',
+                    name: 'deleteCar',
                     params: {
                         carBrand: carBrand,
                         carModel: carModel,
@@ -16,7 +16,7 @@
             >
                 <img
                     src="../assets/delete.png"
-                    class="absolute flex mt-11 pl-2 h-[32px] hover:h-[34px]"
+                    class="absolute flex mt-11 pl-2 h-[28px] hover:h-[30px]"
                 />
             </router-link>
 

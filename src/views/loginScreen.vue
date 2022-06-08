@@ -4,6 +4,12 @@
             <h2 class="mt-6 text-cetner text-3xl font-bold text-black-900 pb-7">
                 Log in to your account
             </h2>
+            <loading
+                :active="isLoading"
+                :is-full-page="fullPage"
+                :loader="loader"
+            />
+
             <form class="mt-12">
                 <div class="grid justify-items-start">
                     <div
@@ -76,7 +82,8 @@
 import { firebase } from '../firebase'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { store } from '../store'
-
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css'
 
 export default {
     name: 'loginScreen',
@@ -85,7 +92,13 @@ export default {
             username: '',
             password: '',
             errorMsg: null,
+            isLoading: false,
+            fullPage: true,
+            loader: 'dots',
         }
+    },
+    components: {
+        Loading,
     },
     methods: {
         login() {
@@ -96,6 +109,7 @@ export default {
                     //changing routes
                     this.$router.replace({ path: '/' })
                     console.log(`Hello ${store.currentFirstName}!`)
+                    this.isLoading = false
                 })
                 .catch((e) => {
                     console.log('Error:', e.message)
@@ -103,8 +117,8 @@ export default {
                     this.password = ''
                     this.errorMsg = 'Error: Wrong password or email!'
                 })
+            this.isLoading = true
         },
     },
 }
 </script>
-

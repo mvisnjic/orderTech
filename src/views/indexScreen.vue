@@ -1,34 +1,64 @@
 <template>
-    <div class="grid grid-rows-1 lg:grid-cols-3 px-4 lg:px-0 w-full">
+    <div
+        class="grid grid-rows-1 lg:grid-cols-3 items-center px-4 lg:px-0 w-full mt-12"
+    >
+        <!--bg-[url('src/assets/background2.png')] bg-cover bg-bottom bg-blend-soft-light bg-[#DCCDCD]-->
+
         <div
-            class="grid content-center justify-items-center pt-16 pb-8 md:pt-16 md:pb-8 lg:pt-0 lg:pb-0"
+            class="flex flex-col items-left font-bold text-center md:text-left mt-12 px-8 md:pl-24 md:pr-24 gap-y-5 w-full"
         >
-            <router-link
-                to="/chooseCar"
-                class="bg-[#E55050] text-white p-4 w-3/6 rounded-full tracking-wide font-semibold font-display hover:bg-red-600"
+            <!-- <p>Naručite tehnički pregled Vašeg vozila!</p> -->
+            <!-- <p>Lako i besplatno u samo nekoliko koraka!</p> -->
+            <p class="text-5xl">
+                Order a technical inspection for your vehicle!
+            </p>
+            <p class="text-3xl">Easy and free in just a few steps!</p>
+            <div
+                class="flex flex-col xl:flex-row items-left w-full gap-8 mt-12 items-center"
             >
-                Order Now
-            </router-link>
-        </div>
-        <div class="order-first lg:order-none">
-            <img class="mx-auto" alt="Vue logo" src="../assets/logo.gif" />
-            <div class="font-bold text-xl lg:text-2xl">
-                <!-- <p>Naručite tehnički pregled Vašeg vozila!</p> -->
-                <!-- <p>Lako i besplatno u samo nekoliko koraka!</p> -->
-                <p>Order a technical inspection for your vehicle!</p>
-                <p>Easy and free in just a few steps!</p>
+                <div class="flex content-center text-center">
+                    <router-link
+                        to="/chooseCar"
+                        class="bg-[#E55050] text-white p-4 w-56 rounded-full tracking-wide font-semibold font-display hover:bg-red-600"
+                    >
+                        Order Now
+                    </router-link>
+                </div>
+                <div class="flex content-center text-center">
+                    <router-link
+                        class="bg-[#E55050] text-white p-4 w-56 rounded-full tracking-wide font-semibold font-display hover:bg-red-600"
+                        to="/checkout"
+                    >
+                        Checkout
+                    </router-link>
+                </div>
             </div>
         </div>
-        <div class="grid content-center justify-items-center">
-            <router-link
-                class="bg-[#E55050] text-white p-4 w-3/6 rounded-full tracking-wide font-semibold font-display hover:bg-red-600"
-                to="/checkout"
-            >
-                Checkout
-            </router-link>
+
+        <div class="flex mx-auto order-first lg:order-none">
+            <img
+                class="flex self-end mx-auto w-[300px] h-[100%] md:w-[600px] md:h-[100%] ml-0 md:ml-8 lg:ml-12"
+                alt="Vue logo"
+                src="../assets/inspection.png"
+            />
+        </div>
+        <div class="flex flex-col justify-center">
+            <p class="text-3xl font-bold">Active orders</p>
+            <div class="flex flex-col justify-top mt-4" v-if="isLoading">
+                <activeOrders
+                    v-for="order in orders"
+                    :key="order.id"
+                    :registration="order.car.registration"
+                    :time="order.time"
+                    :station="order.station.stationName"
+                />
+            </div>
+            <div class="flex justify-center pt-8" v-else>
+                <img src="/src/assets/loading.gif" class="h-16" />
+            </div>
         </div>
     </div>
-    <div class="pt-[150px]">
+    <div class="pt-[60px] md:pt-[150px]">
         <p class="text-3xl font-bold text-[#E55050]">
             Vehicle technical inspections
         </p>
@@ -36,12 +66,14 @@
     </div>
 
     <div
-        class="flex flex-row bottom-[0px] w-full h-[90px] bg-[#E55050] px-16 md:px-44"
+        class="flex flex-row w-full h-[90px] bg-[#E55050] px-8 md:px-44 bottom-0"
     >
-        <div class="flex flex-row gap-8 place-content-between w-full">
+        <div class="flex flex-row gap-2 md:gap-8 place-content-between w-full">
             <p class="text-lg text-white font-bold py-2">orderTech</p>
-            <div class="flex flex-col py-3 gap-3 text-right">
-                <p class="text-md text-white border-b border-white pb-2">
+            <div class="flex flex-col py-3 gap-1 text-right">
+                <p
+                    class="text-md text-white border-none md:border-b md:border-white mb-0 md:pb-2"
+                >
                     Contact: <b> 0951234567 </b>
                 </p>
                 <a
@@ -57,13 +89,22 @@
 
 <script>
 import stationCard from '/src/components/stationCard.vue'
+import activeOrders from '/src/components/activeOrders.vue'
+import { db } from '../firebase'
+import { collection, getDocs, query, onSnapshot } from 'firebase/firestore'
+import { store } from '../store'
+
 export default {
     name: 'HomeScreen',
     components: {
         stationCard,
+        activeOrders,
     },
     data() {
         return {
+            orders: [],
+            isActive: true,
+            isLoading: false,
             stations: [
                 {
                     title: 'Technical inspection Umag',
@@ -112,6 +153,22 @@ export default {
                 },
             ],
         }
+    },
+    methods: {
+        getOrders() {
+            const q = query(collection(db, `users/${store.currentUid}/orders`))
+            onSnapshot(q, (snapshot) => {
+                snapshot.docChanges().forEach((change) => {
+                    this.orders.push(change.doc.data())
+                    console.log(this.orders)
+                    this.isLoading = true
+                })
+            })
+            this.isLoading = false
+        },
+    },
+    mounted() {
+        this.getOrders()
     },
 }
 </script>

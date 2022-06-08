@@ -30,7 +30,9 @@
                         >Select a car</span
                     >
                 </ListboxButton>
+
                 <ListboxOptions
+                    v-if="isLoading"
                     class="z-10 mt-1 mx-auto w-[300px] sm:w-[480px] bg-white shadow-lg max-h-58 rounded-md py-1 text-base sm:text-md"
                 >
                     <ListboxOption
@@ -61,6 +63,9 @@
                         </li>
                     </ListboxOption>
                 </ListboxOptions>
+                <div class="flex justify-center pt-8" v-else>
+                    <img src="/src/assets/loading.gif" class="h-16" />
+                </div>
             </div>
 
             <div class="mt-8 sm:mt-10">
@@ -131,24 +136,19 @@ export default {
     data() {
         return {
             cars: [],
+            isLoading: false,
         }
     },
     setup() {
         async function getCars() {
-            /*  const querySnapshot = await getDocs(
-                collection(db, `users/${store.currentUid}/cars`)
-            )
-            querySnapshot.forEach((doc) => {
-                this.cars.push(doc.data())
-                //console.log(this.stations)
-            })*/
-
             const q = query(collection(db, `users/${store.currentUid}/cars`))
             onSnapshot(q, (snapshot) => {
                 snapshot.docChanges().forEach((change) => {
                     this.cars.push(change.doc.data())
+                    this.isLoading = true
                 })
             })
+            this.isLoading = false
         }
         const selected = ref([])
         const isOpen = ref(false)

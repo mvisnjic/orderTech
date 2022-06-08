@@ -5,6 +5,11 @@
             <h2 class="mt-6 text-cetner text-3xl font-bold text-black-900">
                 Sign up to your account
             </h2>
+            <loading
+                :active="isLoading"
+                :is-full-page="fullPage"
+                :loader="loader"
+            />
             <form class="mt-12">
                 <div class="flex flex-row space-x-9">
                     <div class="grid justify-items-start my-8">
@@ -84,7 +89,7 @@
                     </div>
                     <input
                         class="w-full text-lg py-2 border-b bg-[#FCFCFF]"
-                        type="passwordrepeat"
+                        type="password"
                         v-model="passwordRepeat"
                         placeholder="Enter your password"
                         required
@@ -132,6 +137,9 @@ import {
 } from 'firebase/auth'
 import { doc, setDoc } from 'firebase/firestore'
 import { store } from '../store'
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css'
+
 export default {
     name: 'signUpScreen',
     data() {
@@ -141,7 +149,13 @@ export default {
             username: '',
             password: '',
             passwordRepeat: '',
+            fullPage: true,
+            loader: 'dots',
+            isLoading: false,
         }
+    },
+    components: {
+        Loading,
     },
     methods: {
         signup() {
@@ -173,6 +187,10 @@ export default {
                     alert(e.message)
                     store.currentFirstName = null
                 })
+            this.isLoading = true
+            setTimeout(() => {
+                this.isLoading = false
+            }, 5000)
         },
     },
 }

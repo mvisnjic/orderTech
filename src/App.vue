@@ -1,7 +1,7 @@
 <template>
-    <div id="app" class="h-screen">
+    <div id="app" class="h-screen w-full">
         <div
-            class="grid grid-cols-2 justify-content-start pt-6 sm:pt-0 md:pt-6 md:grid-cols-3 md:items-center bg-[#FCFCFF]"
+            class="grid grid-cols-2 justify-center pt-6 sm:pt-0 md:pt-6 md:grid-cols-3 md:items-center bg-[#FCFCFF]"
             id="nav"
             :class="
                 open

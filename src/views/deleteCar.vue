@@ -9,7 +9,7 @@
             <div class="mt-12">
                 <div class="grid justify-items-center">
                     <div
-                        class="text-2xl font-bold text-black-900 pb-[5px] border-b w-full pb-4"
+                        class="text-2xl font-bold text-black-900 border-b w-full pb-4"
                     >
                         {{ carBrand }} {{ carModel }}
                     </div>
@@ -49,7 +49,7 @@ import { db } from '../firebase'
 import { deleteDoc, doc } from 'firebase/firestore'
 import { store } from '../store'
 export default {
-    name: 'aboutCar',
+    name: 'deleteCar',
     props: ['carModel', 'carBrand', 'identification', 'registration'],
 
     methods: {

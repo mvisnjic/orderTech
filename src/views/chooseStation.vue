@@ -29,6 +29,7 @@
                     >
                 </ListboxButton>
                 <ListboxOptions
+                    v-if="isLoading"
                     class="z-10 mt-1 mx-auto w-[300px] sm:w-[480px] bg-white shadow-lg max-h-58 rounded-md py-1 text-base sm:text-md"
                 >
                     <ListboxOption
@@ -58,6 +59,9 @@
                         </li>
                     </ListboxOption>
                 </ListboxOptions>
+                <div class="flex justify-center pt-8" v-else>
+                    <img src="/src/assets/loading.gif" class="h-16" />
+                </div>
             </div>
         </Listbox>
 
@@ -82,7 +86,6 @@
 import { ref } from 'vue'
 import { db } from '../firebase'
 import { collection, getDocs, query, updateDoc, doc } from 'firebase/firestore'
-import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { store } from '../store'
 import backButton from '../components/backButton.vue'
 import {
@@ -115,6 +118,7 @@ export default {
     data() {
         return {
             stations: [],
+            isLoading: false,
         }
     },
     setup() {
@@ -123,7 +127,9 @@ export default {
             querySnapshot.forEach((doc) => {
                 this.stations.push(doc.data())
                 //console.log(this.stations)
+                this.isLoading = false
             })
+            this.isLoading = true
         }
         const selected = ref([])
         return {

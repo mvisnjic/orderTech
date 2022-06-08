@@ -9,6 +9,7 @@
 
             <div
                 class="overflow-auto mt-1 sm:my-8 grid grid-cols-1 gap-6 justify-center md:grid-cols-2 lg:grid-cols-3 lg:gap-8"
+                v-if="isLoading"
             >
                 <button @click="isOpen = true"><addNewCar /></button>
                 <myCar
@@ -19,6 +20,9 @@
                     :identification="car.identificationNumber"
                     :registration="car.registration"
                 />
+            </div>
+            <div class="flex justify-center pt-8" v-else>
+                <img src="/src/assets/loading.gif" class="h-16" />
             </div>
         </div>
     </div>
@@ -51,6 +55,7 @@ export default {
     data() {
         return {
             cars: [],
+            isLoading: false,
         }
     },
     methods: {
@@ -59,8 +64,10 @@ export default {
             onSnapshot(q, (snapshot) => {
                 snapshot.docChanges().forEach((change) => {
                     this.cars.push(change.doc.data())
+                    this.isLoading = true
                 })
             })
+            this.isLoading = false
         },
     },
     mounted() {
