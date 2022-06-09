@@ -53,6 +53,10 @@
                     :station="order.station.stationName"
                 />
             </div>
+
+            <div class="flex justify-center pt-8 italic" v-else-if="error">
+                {{ error }}
+            </div>
             <div class="flex justify-center pt-8" v-else>
                 <img src="/src/assets/loading.gif" class="h-16" />
             </div>
@@ -105,6 +109,7 @@ export default {
             orders: [],
             isActive: true,
             isLoading: false,
+            error: null,
             stations: [
                 {
                     title: 'Technical inspection Umag',
@@ -160,15 +165,19 @@ export default {
             onSnapshot(q, (snapshot) => {
                 snapshot.docChanges().forEach((change) => {
                     this.orders.push(change.doc.data())
-                    console.log(this.orders)
                     this.isLoading = true
                 })
+                if (this.orders.length < 1) {
+                    this.error = 'No active orders.'
+                }
             })
             this.isLoading = false
         },
     },
     mounted() {
-        this.getOrders()
+        setTimeout(() => {
+            this.getOrders()
+        }, 1000)
     },
 }
 </script>

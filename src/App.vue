@@ -89,7 +89,7 @@
                     class="text-[#E55050] hover:text-red-800 hover:font-bold"
                     @click="closeMenu"
                 >
-                    <router-link to="/addvehicle">My Cars</router-link>
+                    <router-link to="/mycars">My Cars</router-link>
                 </div>
 
                 <div

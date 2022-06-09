@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import notFound from '../views/404.vue'
-import addVehicle from '../views/addVehicle.vue'
+import myCars from '../views/myCars.vue'
 import chooseStation from '../views/chooseStation.vue'
 import index from '../views/indexScreen.vue'
 import login from '../views/loginScreen.vue'
@@ -31,9 +31,9 @@ const routes = [
         meta: { title: 'Sign Up | OrderTech' },
     },
     {
-        path: '/addvehicle',
-        name: 'addVehicle',
-        component: addVehicle,
+        path: '/mycars',
+        name: 'myCars',
+        component: myCars,
         meta: { title: 'My Cars | OrderTech' },
     },
     {

@@ -8,10 +8,11 @@
         >
             <h1>Check-out Order</h1>
         </div>
-        <div class="mt-6 overflow-auto">
+        <div v-if="error" class="italic">{{ error }}</div>
+        <div class="mt-6 overflow-auto" v-else-if="dataRef.length > 0">
             <checkoutCar
-                v-for="car in cars"
-                :key="car.time"
+                v-for="car in dataRef"
+                :key="car.car.registration"
                 :carBrand="car.car.carBrand"
                 :carModel="car.car.carModel"
                 :identification="car.car.identification"
@@ -20,6 +21,9 @@
                 :time="car.time"
                 :stationName="car.station.stationName"
             />
+        </div>
+        <div v-else class="italic">
+            <img src="/src/assets/loading.gif" class="h-16" />
         </div>
 
         <div class="mt-6">
@@ -36,6 +40,10 @@
                 class="bg-[#E55050] text-white p-4 w-[150px] rounded-full tracking-wide font-semibold font-display hover:bg-red-600"
                 type="button"
                 @click.once="deleteOrder"
+                :disabled="
+                    selectedRegistration.length > 10 ||
+                    selectedRegistration.length <= 5
+                "
             >
                 Check-out
             </button>
@@ -43,11 +51,34 @@
     </div>
 </template>
 
+<script setup>
+import { ref } from 'vue'
+const dataRef = ref([])
+const error = ref(null)
+function checkForOrders() {
+    const q = query(collection(db, `users/${store.currentUid}/orders`))
+    onSnapshot(q, (querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            dataRef.value.push(doc.data())
+        })
+        if (dataRef.value.length === 0) {
+            error.value = 'No active orders.'
+        }
+    })
+}
+</script>
+
 <script>
 import { db } from '../firebase'
 import backButton from '../components/backButton.vue'
 import checkoutCar from '../components/checkoutCar.vue'
-import { collection, doc, setDoc, getDocs, deleteDoc } from 'firebase/firestore'
+import {
+    collection,
+    doc,
+    deleteDoc,
+    onSnapshot,
+    query,
+} from 'firebase/firestore'
 import { store } from '../store'
 import emailjs from '@emailjs/browser'
 
@@ -58,24 +89,16 @@ export default {
     },
     data() {
         return {
-            cars: [],
-            selectedRegistration: null,
+            selectedRegistration: '',
         }
     },
 
-    created() {
-        this.checkOrder()
+    beforeMount() {
+        setTimeout(() => {
+            this.checkForOrders()
+        }, 750)
     },
     methods: {
-        async checkOrder() {
-            const querySnapshot = await getDocs(
-                collection(db, `users/${store.currentUid}/orders`)
-            )
-            querySnapshot.forEach((doc) => {
-                console.log(doc.id, ' => ', doc.data())
-                this.cars.push(doc.data())
-            })
-        },
         async deleteOrder() {
             await deleteDoc(
                 doc(
@@ -109,7 +132,7 @@ export default {
             await this.$router.replace('/successcheckout')
             setTimeout(() => {
                 this.$router.replace('/')
-            }, '4000')
+            }, '2000')
         },
     },
 }

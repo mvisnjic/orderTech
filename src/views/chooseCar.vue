@@ -63,6 +63,9 @@
                         </li>
                     </ListboxOption>
                 </ListboxOptions>
+                <div class="flex justify-center pt-8 italic" v-else-if="error">
+                    {{ error }}
+                </div>
                 <div class="flex justify-center pt-8" v-else>
                     <img src="/src/assets/loading.gif" class="h-16" />
                 </div>
@@ -137,6 +140,7 @@ export default {
         return {
             cars: [],
             isLoading: false,
+            error: null,
         }
     },
     setup() {
@@ -147,6 +151,9 @@ export default {
                     this.cars.push(change.doc.data())
                     this.isLoading = true
                 })
+                if (this.cars.length < 1) {
+                    this.error = 'No cars founded.'
+                }
             })
             this.isLoading = false
         }
@@ -180,7 +187,9 @@ export default {
         },
     },
     mounted() {
-        this.getCars()
+        setTimeout(() => {
+            this.getCars()
+        }, 1000)
     },
 }
 </script>

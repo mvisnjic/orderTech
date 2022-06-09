@@ -122,13 +122,16 @@ export default {
                         console.log('SUCCESS!', res.status, res.text)
                     },
                     (e) => {
-                        console.log('Failed!', e)
+                        alert('Failed! E-mail confirm not sent!')
                     }
                 )
 
             await this.$router.replace('/successorder')
             localStorage.removeItem('selectedRegistration')
             localStorage.removeItem('selectedStation')
+            setTimeout(() => {
+                this.$router.replace('/')
+            }, '2000')
         },
     },
 }
