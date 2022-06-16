@@ -18,15 +18,8 @@ Aplikacija "orderTech" koncipirana je kako bi maksimalno smanjila vrijeme čekan
 
 ## Funkcionalnosti
 
-Aplikacija radi tako da korisnici upišu broj šasije automobila kojeg žele registrirati, OIB i email. Nakon toga podaci se provjeravaju u bazi podataka i ako je sve točno upisano korisnik dobiva opciju za biranje stanice za tehnički pregled gdje želi obaviti pregled. Nakon odabiranja stanice za tehnički pregled, korisnik dobiva popis slobodnih termina. U slučaju da nema slobodan termin na dan kada ističe registracija vozila, korisniku se automatski nudi prvi slobodan termin za određenu stanicu za tehnički pregled. Ako korisniku ne paše taj termin a nema drugih slobodnih, a na drugoj stanici je termin slobodan aplikacija nudi mogućnost tamo rezervirati termin. Tri dana prije termina dobivaju na e-mail podsjetnik o tehničkom pregledu. Korisnici mogu prijaviti termin 14 dana prije isteka registracije i odjaviti termin minimalno 2 dana prije termina.
-
-\*Mogućnost registracije korisnika i prijava te vođenje evidencije o svim vozilima korisnika
-
-\*Mogućnost naručivanja za odjavu vozila (ako imaju registriran račun)
-
-\*Mogućnost provjere identiteta
-
-Označeno sa \* - pokušati ćemo napraviti određene funkcionalnosti ako ne bude prekompleksno za implentaciju.
+Aplikacija radi tako da korisnici moraju registrirati svoj račun. Nakon što uspješno registriraju račun imaju opciju za dodavanje vozila, brisanje vozila te naručivanje i odjavljivanje termina za određeno vozilo. Ukoliko je korisnik dodao jedno ili više vozila u bazu podataka, svoju flotu može pogledati na stranici My Cars. Korisnik za naručivanje na tehnički pregled jednostavno odabire određeno vozilo, može birati stanicu na kojoj želi obaviti tehnički pregled i u konačnici bira termin. Termin može birati 2 tjedna unaprijed (isključujući nedjelje). Nakon uspješne prijave na pregled na početnoj stranici mož
+e vidjeti svoje aktivne narudžbe. Ukoliko želi odjavu trenutnog termina može odabrati check-out i uspješno odjaviti termin za određeno vozilo. E-mail potvrda dolazi prilikom uspješne narudžbe određenog vozila te prilikom uspješne odjave termina za određeno vozilo.
 
 ## Prototip aplikacije
 
@@ -34,7 +27,7 @@ Figma: https://www.figma.com/proto/2pUz5Y3QjkzbQKvAmsrSj5/OrderTech?page-id=0%3A
 
 ## Javni link na aplikaciju
 
-Web:
+Web: https://ordertech.bslm.com.hr/
 
 ## Organizacija
 
