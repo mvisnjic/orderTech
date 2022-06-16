@@ -29,7 +29,8 @@
                 <button
                     class="bg-[#E55050] text-white p-4 w-[150px] rounded-full tracking-wide font-semibold font-display hover:bg-red-600"
                     type="button"
-                    @click.prevent="order"
+                    @click="order"
+                    :disabled="isActive"
                 >
                     Order
                 </button>
@@ -62,6 +63,7 @@ export default {
                 this.setMonth(),
                 this.setDay()
             ),
+            isActive: false,
         }
     },
     methods: {
@@ -86,6 +88,7 @@ export default {
             return time[4]
         },
         async order() {
+            this.isActive = true
             const selectedRegistration = localStorage.getItem(
                 'selectedRegistration'
             )
@@ -125,12 +128,12 @@ export default {
                         alert('Failed! E-mail confirm not sent!')
                     }
                 )
-
             await this.$router.replace('/successorder')
             localStorage.removeItem('selectedRegistration')
             localStorage.removeItem('selectedStation')
             setTimeout(() => {
                 this.$router.replace('/')
+                this.isActive = false
             }, '2000')
         },
     },

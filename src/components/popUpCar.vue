@@ -20,6 +20,7 @@
                         type="text"
                         placeholder="WAUZZZ4BZWN049194"
                         required
+                        maxlength="17"
                     />
                     <label
                         for="IdentificationWarning"
@@ -41,6 +42,7 @@
                         class="w-full text-lg py-2 border-b bg-[#FCFCFF]"
                         type="text"
                         placeholder="PU533SM"
+                        maxlength="10"
                         required
                     />
                 </div>
@@ -57,6 +59,7 @@
                             v-model="carBrand"
                             placeholder="BMW"
                             required
+                            maxlength="20"
                         />
                     </div>
                     <div class="grid justify-items-start my-8">
@@ -71,6 +74,7 @@
                             v-model="carModel"
                             placeholder="M4"
                             required
+                            maxlength="15"
                         />
                     </div>
                 </div>
@@ -104,16 +108,6 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { db } from '../firebase'
 import { collection, getDocs, query, setDoc, doc } from 'firebase/firestore'
 import { store } from '../store'
-
-/* const auth = getAuth()
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        store.currentUid = user.uid
-        // console.log(user.uid)
-    } else {
-        store.currentUid = null
-    }
-}) */
 
 export default {
     name: 'popUpCar',

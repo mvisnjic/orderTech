@@ -79,7 +79,7 @@ export default {
             this.isLoading = false
         },
     },
-    mounted() {
+    beforeMount() {
         setTimeout(() => {
             this.getCars()
         }, 1000)

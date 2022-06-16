@@ -95,7 +95,7 @@
 import stationCard from '/src/components/stationCard.vue'
 import activeOrders from '/src/components/activeOrders.vue'
 import { db } from '../firebase'
-import { collection, getDocs, query, onSnapshot } from 'firebase/firestore'
+import { collection, query, onSnapshot } from 'firebase/firestore'
 import { store } from '../store'
 
 export default {
@@ -174,7 +174,7 @@ export default {
             this.isLoading = false
         },
     },
-    mounted() {
+    beforeMount() {
         setTimeout(() => {
             this.getOrders()
         }, 1000)

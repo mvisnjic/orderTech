@@ -95,10 +95,6 @@
                 </div>
             </div>
         </Listbox>
-
-        <!-- <div class="p-[60px]">
-        {{ stations }}
-    </div> -->
     </div>
     <popUpCar :open="isOpen" @close="isOpen = !isOpen" />
 </template>

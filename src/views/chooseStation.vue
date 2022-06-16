@@ -76,9 +76,6 @@
                 </button>
             </router-link>
         </div>
-        <!-- <div class="p-[60px]">
-        {{ stations }}
-    </div> -->
     </div>
 </template>
 
@@ -95,16 +92,6 @@ import {
     ListboxOption,
     ListboxOptions,
 } from '@headlessui/vue'
-
-/* const auth = getAuth()
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        store.currentUid = user.uid
-        // console.log(user.uid)
-    } else {
-        store.currentUid = null
-    }
-}) */
 
 export default {
     components: {
@@ -156,7 +143,6 @@ export default {
                     }
                 )
             })
-            //this.$router.replace({ path: 'selectdate' })
         },
     },
     mounted() {

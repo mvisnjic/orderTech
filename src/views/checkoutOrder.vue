@@ -9,9 +9,9 @@
             <h1>Check-out Order</h1>
         </div>
         <div v-if="error" class="italic">{{ error }}</div>
-        <div class="mt-6 overflow-auto" v-else-if="dataRef.length > 0">
+        <div class="mt-6 overflow-auto" v-else-if="data.length > 0">
             <checkoutCar
-                v-for="car in dataRef"
+                v-for="car in data"
                 :key="car.car.registration"
                 :carBrand="car.car.carBrand"
                 :carModel="car.car.carModel"
@@ -32,41 +32,25 @@
             <input
                 type="text"
                 v-model="selectedRegistration"
+                v-on:keyup.enter="deleteOrder"
+                :disabled="isActive"
                 class="w-full p-2 border-[#E55050] border-b"
+                maxlength="10"
             />
         </div>
         <div class="lg:grid mt-6">
+            <div></div>
             <button
                 class="bg-[#E55050] text-white p-4 w-[150px] rounded-full tracking-wide font-semibold font-display hover:bg-red-600"
                 type="button"
-                @click.once="deleteOrder"
-                :disabled="
-                    selectedRegistration.length > 10 ||
-                    selectedRegistration.length <= 5
-                "
+                @click="deleteOrder"
+                :disabled="isActive"
             >
                 Check-out
             </button>
         </div>
     </div>
 </template>
-
-<script setup>
-import { ref } from 'vue'
-const dataRef = ref([])
-const error = ref(null)
-function checkForOrders() {
-    const q = query(collection(db, `users/${store.currentUid}/orders`))
-    onSnapshot(q, (querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-            dataRef.value.push(doc.data())
-        })
-        if (dataRef.value.length === 0) {
-            error.value = 'No active orders.'
-        }
-    })
-}
-</script>
 
 <script>
 import { db } from '../firebase'
@@ -90,20 +74,55 @@ export default {
     data() {
         return {
             selectedRegistration: '',
+            data: [],
+            dataRegistrations: [],
+            error: null,
+            isActive: false,
         }
     },
-
     beforeMount() {
         setTimeout(() => {
             this.checkForOrders()
-        }, 750)
+        }, 1000)
     },
     methods: {
+        checkRegistration(currentRegistration) {
+            return new Promise((resolve, reject) => {
+                const registrationFounded = this.dataRegistrations.filter(
+                    (registration) => registration === currentRegistration
+                )
+                if (registrationFounded.length > 0) {
+                    resolve(currentRegistration)
+                } else {
+                    this.isActive = false
+                    alert('Wrong license plate number. Try again!')
+                    reject('Wrong license plate number. Try again!')
+                }
+            })
+        },
+        checkForOrders() {
+            const q = query(collection(db, `users/${store.currentUid}/orders`))
+            onSnapshot(q, (querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    this.data.push(doc.data())
+                    this.dataRegistrations.push(doc.id)
+                })
+                if (this.data.length === 0) {
+                    this.error = 'No active orders.'
+                }
+            })
+        },
         async deleteOrder() {
+            this.isActive = true
+            await this.checkRegistration(
+                this.selectedRegistration.toUpperCase()
+            )
             await deleteDoc(
                 doc(
                     db,
-                    `users/${store.currentUid}/orders/${this.selectedRegistration}`
+                    `users/${
+                        store.currentUid
+                    }/orders/${this.selectedRegistration.toUpperCase()}`
                 )
             )
             const templateParams = {
@@ -111,7 +130,7 @@ export default {
                 name: store.currentFirstName,
                 email: store.currentUserEmail,
                 notes: `Check-out successful for car with a plate:`,
-                reg: `Car plate: ${this.selectedRegistration}`,
+                reg: `Car plate: ${this.selectedRegistration.toUpperCase()}`,
             }
             await emailjs
                 .send(
@@ -130,6 +149,7 @@ export default {
                     }
                 )
             await this.$router.replace('/successcheckout')
+            this.isActive = false
             setTimeout(() => {
                 this.$router.replace('/')
             }, '2000')

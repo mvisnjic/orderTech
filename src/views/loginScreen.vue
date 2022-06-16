@@ -79,7 +79,6 @@
 </template>
 
 <script>
-import { firebase } from '../firebase'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { store } from '../store'
 import Loading from 'vue-loading-overlay'
@@ -113,7 +112,6 @@ export default {
                 })
                 .catch((e) => {
                     console.log('Error:', e.message)
-                    // alert(e.message)
                     this.password = ''
                     this.errorMsg = 'Error: Wrong password or email!'
                 })

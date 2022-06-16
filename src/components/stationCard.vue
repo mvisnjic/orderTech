@@ -8,10 +8,7 @@
             :key="i"
         >
             <div>
-                <img
-                    :src="`/src/assets/${station.img}.jpg`"
-                    class="w-full h-[240px]"
-                />
+                <img :src="`/${station.img}.jpg`" class="w-full h-[240px]" />
             </div>
             <div class="flex justify-end p-6 text-2xl font-bold text-black">
                 {{ station.title }}
