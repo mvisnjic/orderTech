@@ -43,7 +43,9 @@
             />
         </div>
         <div class="flex flex-col justify-center">
-            <p class="text-3xl font-bold">Active orders</p>
+            <p class="text-3xl font-bold pt-16 md:pt-16 lg:pt-0">
+                Active orders
+            </p>
             <div class="flex flex-col justify-top mt-4" v-if="isLoading">
                 <activeOrders
                     v-for="order in orders"
